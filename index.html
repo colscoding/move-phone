@@ -20,8 +20,8 @@
       <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
 
       <h2>
-        Move mode:
-        <p id="moveMode"></p>
+        Last 100 sum:
+        <p id="last100Sum"></p>
       </h2>
 
       <p style="margin-top: 1rem;">
@@ -64,6 +64,7 @@
 
     const last100 = []
     let last100Sum = 0
+    let displayTime = Date.now()
     function handleMotion(event) {
       updateFieldIfNotNull("Accelerometer_x", event.acceleration.x);
       updateFieldIfNotNull("Accelerometer_y", event.acceleration.y);
@@ -78,7 +79,13 @@
         const old = last100.slice()
         last100Sum -= old
       }
-
+      const moveThreshold = 100
+      const isMoving = last100Sum > moveThreshold
+      const t = Date.now()
+      if (t > (displayTime + 1000)) {
+        displayTime = t
+        document.getElementById("last100Sum").innerHTML = last100Sum
+      }
     }
 
 
