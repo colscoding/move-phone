@@ -71,8 +71,7 @@
       updateFieldIfNotNull("Accelerometer_z", event.acceleration.z);
 
       updateFieldIfNotNull("Accelerometer_i", event.interval, 2);
-      const acc = event.acceleration
-      const sum = ['x', 'y', 'z'].map(key => Math.abs(acc[key])).reduce((a, b) => a + b) * event.interval
+      const sum = (Math.abs(event.acceleration.x) + Math.abs(event.acceleration.y) + Math.abs(event.acceleration.z)) * event.interval
       last100.push(sum)
       last100Sum += sum
       if (last100.length > 100) {
